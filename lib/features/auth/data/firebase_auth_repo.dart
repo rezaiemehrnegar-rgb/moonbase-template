@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 /*
 
 FIREBASE IS OUR BACKEND - You can swap out any backend here..
@@ -160,7 +162,7 @@ class FirebaseAuthRepo implements AuthRepo {
       if (gUser == null) return null;
 
       // obtain auth details from request
-      final GoogleSignInAuthentication gAuth = await gUser.authentication;
+      final GoogleSignInAuthentication gAuth = gUser.authentication;
 
       // create a credential for the user
       final credential = GoogleAuthProvider.credential(

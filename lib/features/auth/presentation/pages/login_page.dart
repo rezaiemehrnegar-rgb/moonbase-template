@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 /*
 
 LOGIN PAGE UI
@@ -87,8 +89,11 @@ class _LoginPageState extends State<LoginPage> {
                 emailController.clear();
               }
 
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(SnackBar(content: Text(message)));
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(message),
+                ),
+              );
             },
             child: const Text("Reset"),
           ),
@@ -188,7 +193,8 @@ class _LoginPageState extends State<LoginPage> {
                         child: Text(
                           "Or sign in with",
                           style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary),
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
                         ),
                       ),
                       Expanded(
@@ -231,15 +237,17 @@ class _LoginPageState extends State<LoginPage> {
                       Text(
                         "Don't have an account?",
                         style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary),
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
                       ),
                       GestureDetector(
                         onTap: widget.togglePages,
                         child: Text(
                           " Register now",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).colorScheme.primary),
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
                         ),
                       )
                     ],

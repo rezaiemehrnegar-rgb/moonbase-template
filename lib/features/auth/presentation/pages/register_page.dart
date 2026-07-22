@@ -44,13 +44,19 @@ class _RegisterPageState extends State<RegisterPage> {
       // pw doesn't match
       else {
         ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Passwords do not match!")));
+          const SnackBar(
+            content: Text("Passwords do not match!"),
+          ),
+        );
       }
     }
     // fields are empty -> display error
     else {
       ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Please complete all fields!")));
+        const SnackBar(
+          content: Text("Please complete all fields!"),
+        ),
+      );
     }
   }
 
@@ -149,15 +155,17 @@ class _RegisterPageState extends State<RegisterPage> {
                     Text(
                       "Already have an account?",
                       style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary),
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
                     ),
                     GestureDetector(
                       onTap: widget.togglePages,
                       child: Text(
                         " Login now",
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).colorScheme.primary),
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
                       ),
                     )
                   ],
