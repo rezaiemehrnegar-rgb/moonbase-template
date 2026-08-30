@@ -9,6 +9,7 @@ FIREBASE IS OUR BACKEND - You can swap out any backend here..
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+
 import '../domain/entities/app_user.dart';
 import '../domain/repos/auth_repo.dart';
 
@@ -25,15 +26,11 @@ class FirebaseAuthRepo implements AuthRepo {
           .signInWithEmailAndPassword(email: email, password: password);
 
       // create user
-      AppUser user = AppUser(
-        uid: userCredential.user!.uid,
-        email: email,
-      );
+      AppUser user = AppUser(uid: userCredential.user!.uid, email: email);
 
       // return user
       return user;
     }
-
     // catch any errors...
     catch (e) {
       throw Exception('Login failed: $e');
@@ -43,11 +40,18 @@ class FirebaseAuthRepo implements AuthRepo {
   // REGISTER: Email & Password
   @override
   Future<AppUser?> registerWithEmailPassword(
-      String name, String email, String password) async {
+    String name,
+    String email,
+    String password,
+  ) async {
     try {
       // attempt sign up
       UserCredential userCredential = await firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
+
+      if (userCredential.user != null) {
+        await userCredential.user!.updateDisplayName(name);
+      }
 
       // create user
       AppUser user = AppUser(uid: userCredential.user!.uid, email: email);
@@ -55,7 +59,6 @@ class FirebaseAuthRepo implements AuthRepo {
       // return user
       return user;
     }
-
     // any errors..
     catch (e) {
       throw Exception('Registration failed: $e');
@@ -117,11 +120,12 @@ class FirebaseAuthRepo implements AuthRepo {
   Future<AppUser?> signInWithApple() async {
     try {
       // request Apple ID credentials
-      final appleCredential =
-          await SignInWithApple.getAppleIDCredential(scopes: [
-        AppleIDAuthorizationScopes.email,
-        AppleIDAuthorizationScopes.fullName,
-      ]);
+      final appleCredential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+      );
 
       // create an OAuth credential
       final oAuthCredential = OAuthProvider("apple.com").credential(
@@ -130,8 +134,9 @@ class FirebaseAuthRepo implements AuthRepo {
       );
 
       // sign in with the credential
-      UserCredential userCredential =
-          await firebaseAuth.signInWithCredential(oAuthCredential);
+      UserCredential userCredential = await firebaseAuth.signInWithCredential(
+        oAuthCredential,
+      );
 
       // firebase user
       final firebaseUser = userCredential.user;
@@ -146,7 +151,7 @@ class FirebaseAuthRepo implements AuthRepo {
 
       return appUser;
     } catch (e) {
-      print("Error signing in with apple: $e");
+      print('Error signing in with apple: $e');
       return null;
     }
   }
@@ -155,29 +160,21 @@ class FirebaseAuthRepo implements AuthRepo {
   @override
   Future<AppUser?> signInWithGoogle() async {
     try {
-      // begin the interactive sign-in process
-      final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
+      await GoogleSignIn.instance.initialize();
 
-      // user cancelled sign-in
-      if (gUser == null) return null;
+      final GoogleSignInAccount gUser = await GoogleSignIn.instance
+          .authenticate();
 
-      // obtain auth details from request
       final GoogleSignInAuthentication gAuth = gUser.authentication;
 
-      // create a credential for the user
-      final credential = GoogleAuthProvider.credential(
-        accessToken: gAuth.accessToken,
-        idToken: gAuth.idToken,
+      final credential = GoogleAuthProvider.credential(idToken: gAuth.idToken);
+
+      UserCredential userCredential = await firebaseAuth.signInWithCredential(
+        credential,
       );
 
-      // sign in with these credentials
-      UserCredential userCredential =
-          await firebaseAuth.signInWithCredential(credential);
-
-      // firebase user
       final firebaseUser = userCredential.user;
 
-      // user cancelled sign-in process
       if (firebaseUser == null) return null;
 
       AppUser appUser = AppUser(
@@ -187,7 +184,7 @@ class FirebaseAuthRepo implements AuthRepo {
 
       return appUser;
     } catch (e) {
-      print(e);
+      print('Error signing in with google: $e');
       return null;
     }
   }

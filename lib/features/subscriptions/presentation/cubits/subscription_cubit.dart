@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 /*
 
 CHECKS IF THE USER IS PRO OR FREE
@@ -5,6 +7,7 @@ CHECKS IF THE USER IS PRO OR FREE
 */
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../data/revenuecat_service.dart';
 import 'subscription_states.dart';
 

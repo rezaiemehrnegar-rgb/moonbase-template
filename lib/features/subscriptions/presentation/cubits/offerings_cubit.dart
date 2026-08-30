@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 /*
 
 THIS CUBIT IS RESPONSIBLE FOR FETCHING & PURCHASING OFFERINGS FROM REVCAT
@@ -7,6 +9,7 @@ THIS CUBIT IS RESPONSIBLE FOR FETCHING & PURCHASING OFFERINGS FROM REVCAT
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
+
 import '../../data/revenuecat_service.dart';
 import 'offerings_states.dart';
 
@@ -39,7 +42,6 @@ class OfferingsCubit extends Cubit<OfferingsState> {
 
         emit(OfferingsLoaded(_packages));
       }
-
       // no offerings available
       else {
         _packages = [];
@@ -55,8 +57,9 @@ class OfferingsCubit extends Cubit<OfferingsState> {
   Future<void> purchasePackage(Package package, Function onSuccess) async {
     emit(PurchaseLoading());
     try {
-      CustomerInfo? customerInfo =
-          await RevenuecatService.purchasePackage(package);
+      CustomerInfo? customerInfo = await RevenuecatService.purchasePackage(
+        package,
+      );
 
       // successful purchase
       if (customerInfo != null &&

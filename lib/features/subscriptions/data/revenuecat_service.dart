@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use, avoid_print
+
 import 'package:purchases_flutter/purchases_flutter.dart';
 
 class RevenuecatService {
@@ -26,7 +28,8 @@ class RevenuecatService {
   // PURCHASE A PACKAGE
   static Future<CustomerInfo?> purchasePackage(Package package) async {
     try {
-      CustomerInfo customerInfo = await Purchases.purchasePackage(package);
+      CustomerInfo customerInfo =
+          (await Purchases.purchasePackage(package)) as CustomerInfo;
       print("Package purchases successfully");
       return customerInfo;
     } catch (e) {

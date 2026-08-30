@@ -78,10 +78,8 @@ class WelcomePage extends StatelessWidget {
                         "by Mitch Koko",
                         style: TextStyle(
                           fontSize: 14,
-                          color: Theme.of(context)
-                              .colorScheme
-                              .primary
-                              .withOpacity(0.7),
+                          color: Theme.of(context).colorScheme.primary
+                              .withValues(alpha: 0.7),
                         ),
                       ),
                     ],
@@ -118,8 +116,9 @@ class WelcomePage extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
-                              color:
-                                  Theme.of(context).colorScheme.inversePrimary,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .inversePrimary,
                             ),
                           ),
                         ],
@@ -208,8 +207,9 @@ class WelcomePage extends StatelessWidget {
                     onPressed: () => _launchUrl(githubUrl),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).colorScheme.tertiary,
-                      foregroundColor:
-                          Theme.of(context).colorScheme.inversePrimary,
+                      foregroundColor: Theme.of(context)
+                          .colorScheme
+                          .inversePrimary,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -246,10 +246,8 @@ class WelcomePage extends StatelessWidget {
                     "Once Firebase is connected, restart the app",
                     style: TextStyle(
                       fontSize: 13,
-                      color: Theme.of(context)
-                          .colorScheme
-                          .primary
-                          .withOpacity(0.6),
+                      color: Theme.of(context).colorScheme.primary
+                          .withValues(alpha: 0.6),
                     ),
                   ),
                 ),
@@ -276,7 +274,7 @@ class WelcomePage extends StatelessWidget {
         color: Theme.of(context).colorScheme.secondary,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: Theme.of(context).colorScheme.tertiary.withOpacity(0.5),
+          color: Theme.of(context).colorScheme.tertiary.withValues(alpha: 0.5),
           width: 1,
         ),
       ),
@@ -288,7 +286,8 @@ class WelcomePage extends StatelessWidget {
             width: 44,
             height: 44,
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.tertiary.withOpacity(0.2),
+              color: Theme.of(context).colorScheme.tertiary
+                  .withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Icon(
@@ -318,8 +317,8 @@ class WelcomePage extends StatelessWidget {
                   description,
                   style: TextStyle(
                     fontSize: 14,
-                    color:
-                        Theme.of(context).colorScheme.primary.withOpacity(0.8),
+                    color: Theme.of(context).colorScheme.primary
+                        .withValues(alpha: 0.8),
                     height: 1.4,
                   ),
                 ),

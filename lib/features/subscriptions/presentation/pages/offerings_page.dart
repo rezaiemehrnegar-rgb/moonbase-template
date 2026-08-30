@@ -1,7 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 import '../cubits/offerings_cubit.dart';
 import '../cubits/offerings_states.dart';
 import '../cubits/subscription_cubit.dart';
@@ -39,10 +42,9 @@ class OfferingsPage extends StatelessWidget {
         // wait until subscription state shows user is pro, then close the page
         subscriptionCubit.stream
             .firstWhere(
-                (subState) => subState is SubscriptionLoaded && subState.isPro)
-            .then(
-              (value) => Navigator.pop(context),
-            );
+              (subState) => subState is SubscriptionLoaded && subState.isPro,
+            )
+            .then((value) => Navigator.pop(context));
       },
     );
   }
@@ -92,9 +94,7 @@ class OfferingsPage extends StatelessWidget {
                 ? state.message
                 : (state as PurchaseError).message;
 
-            return Center(
-              child: Text("Error: $errorMsg"),
-            );
+            return Center(child: Text("Error: $errorMsg"));
           }
 
           // loaded!
@@ -104,9 +104,7 @@ class OfferingsPage extends StatelessWidget {
 
             // no packages available
             if (packages.isEmpty) {
-              return const Center(
-                child: Text("No offerings available.."),
-              );
+              return const Center(child: Text("No offerings available.."));
             }
 
             // package are available
@@ -119,10 +117,7 @@ class OfferingsPage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Text(
                     "Pro users unlock posting and commenting capabilities. Subscriptions will auto-renew unless cancelled in the App Store account settings.",
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: colorScheme.primary,
-                    ),
+                    style: TextStyle(fontSize: 16, color: colorScheme.primary),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -145,7 +140,9 @@ class OfferingsPage extends StatelessWidget {
                       // return Card UI
                       return Card(
                         margin: const EdgeInsets.symmetric(
-                            vertical: 8, horizontal: 16),
+                          vertical: 8,
+                          horizontal: 16,
+                        ),
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: Column(
@@ -184,7 +181,7 @@ class OfferingsPage extends StatelessWidget {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),

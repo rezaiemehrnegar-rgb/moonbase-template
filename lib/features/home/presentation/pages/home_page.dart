@@ -1,5 +1,8 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../components/drawer.dart';
 import '../../../auth/presentation/components/my_textfield.dart';
 import '../../../auth/presentation/cubits/auth_cubit.dart';
@@ -72,13 +75,11 @@ class _HomePageState extends State<HomePage>
               Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const OfferingsPage(),
-                ),
+                MaterialPageRoute(builder: (context) => const OfferingsPage()),
               );
             },
             child: const Text("Subscribe"),
-          )
+          ),
         ],
       ),
     );
@@ -193,16 +194,18 @@ class _HomePageState extends State<HomePage>
 
   // Build list of posts for given category
   Widget _buildCategoryPosts(
-      String category, List<Post> posts, Map<String, int> commentCounts) {
+    String category,
+    List<Post> posts,
+    Map<String, int> commentCounts,
+  ) {
     // filter posts for this category
-    final postsInThisCategory =
-        posts.where((post) => post.category == category).toList();
+    final postsInThisCategory = posts
+        .where((post) => post.category == category)
+        .toList();
 
     // posts are empty..
     if (postsInThisCategory.isEmpty) {
-      return const Center(
-        child: Text("No posts in here yet.."),
-      );
+      return const Center(child: Text("No posts in here yet.."));
     }
 
     // list of posts (for this category)
@@ -229,9 +232,7 @@ class _HomePageState extends State<HomePage>
             // navigate to post page
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) => PostPage(post: post),
-              ),
+              MaterialPageRoute(builder: (context) => PostPage(post: post)),
             );
           },
         );
@@ -262,10 +263,7 @@ class _HomePageState extends State<HomePage>
 
         // NEW POST BUTTON
         actions: [
-          IconButton(
-            onPressed: handleAddPost,
-            icon: const Icon(Icons.add),
-          ),
+          IconButton(onPressed: handleAddPost, icon: const Icon(Icons.add)),
         ],
       ),
 
@@ -285,23 +283,22 @@ class _HomePageState extends State<HomePage>
                 _buildCategoryPosts("Build", state.posts, state.commentCounts),
                 _buildCategoryPosts("Launch", state.posts, state.commentCounts),
                 _buildCategoryPosts(
-                    "Monetize", state.posts, state.commentCounts),
+                  "Monetize",
+                  state.posts,
+                  state.commentCounts,
+                ),
               ],
             );
           }
 
           // loading..
           if (state is PostLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const Center(child: CircularProgressIndicator());
           }
 
           // error..
           if (state is PostError) {
-            return Center(
-              child: Text(state.message),
-            );
+            return Center(child: Text(state.message));
           }
 
           // fallback default

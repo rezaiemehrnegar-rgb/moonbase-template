@@ -1,5 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../auth/presentation/components/my_textfield.dart';
 import '../../../auth/presentation/cubits/auth_cubit.dart';
 import '../../../subscriptions/presentation/cubits/subscription_cubit.dart';
@@ -25,10 +28,7 @@ POST PAGE
 class PostPage extends StatefulWidget {
   final Post post;
 
-  const PostPage({
-    super.key,
-    required this.post,
-  });
+  const PostPage({super.key, required this.post});
 
   @override
   State<PostPage> createState() => _PostPageState();
@@ -97,13 +97,11 @@ class _PostPageState extends State<PostPage> {
               Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const OfferingsPage(),
-                ),
+                MaterialPageRoute(builder: (context) => const OfferingsPage()),
               );
             },
             child: const Text("Subscribe"),
-          )
+          ),
         ],
       ),
     );
@@ -207,7 +205,9 @@ class _PostPageState extends State<PostPage> {
 
               // delete comment via cubit
               await _postCubit.deleteComment(
-                  commentId: commentId, postId: widget.post.id);
+                commentId: commentId,
+                postId: widget.post.id,
+              );
 
               // reload
               await _loadComments();
@@ -228,10 +228,7 @@ class _PostPageState extends State<PostPage> {
       appBar: AppBar(
         actions: [
           // add new comment button
-          IconButton(
-            onPressed: handleAddComment,
-            icon: const Icon(Icons.add),
-          ),
+          IconButton(onPressed: handleAddComment, icon: const Icon(Icons.add)),
         ],
       ),
 
@@ -260,7 +257,6 @@ class _PostPageState extends State<PostPage> {
             // loading..
             if (_isLoading)
               const Center(child: CircularProgressIndicator())
-
             // no comments..
             else if (_comments.isEmpty)
               Center(
@@ -268,12 +264,12 @@ class _PostPageState extends State<PostPage> {
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
                     "No comments yet..",
-                    style:
-                        TextStyle(color: Theme.of(context).colorScheme.primary),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   ),
                 ),
               )
-
             // loaded comments!
             else
               ListView.builder(

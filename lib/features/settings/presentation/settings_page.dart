@@ -1,5 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../auth/presentation/cubits/auth_cubit.dart';
 import '../../moderation/presentation/pages/blocked_users_page.dart';
 import 'settings_tile.dart';
@@ -54,9 +57,7 @@ class _SettingsPageState extends State<SettingsPage> {
       // show loading..
       showDialog(
         context: context,
-        builder: (context) => const Center(
-          child: CircularProgressIndicator(),
-        ),
+        builder: (context) => const Center(child: CircularProgressIndicator()),
       );
 
       // delete account
@@ -78,9 +79,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Settings"),
-      ),
+      appBar: AppBar(title: Text("Settings")),
       body: Column(
         children: [
           // delete account
@@ -97,10 +96,11 @@ class _SettingsPageState extends State<SettingsPage> {
             title: "Blocked Users",
             action: IconButton(
               onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const BlockedUsersPage(),
-                  )),
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const BlockedUsersPage(),
+                ),
+              ),
               icon: const Icon(Icons.block),
             ),
           ),
