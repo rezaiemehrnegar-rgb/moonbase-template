@@ -18,7 +18,7 @@ dependencies:
   google_sign_in: ^7.2.0
   sign_in_with_apple: ^8.2.0
   cloud_firestore: ^6.10.0
-  purchases_flutter: ^10.14.0
+  purchases_flutter: ^10.15.1
   url_launcher: ^6.3.3
 
 dev_dependencies:
