@@ -340,10 +340,10 @@ packages:
     dependency: "direct main"
     description:
       name: purchases_flutter
-      sha256: fd67f3b879a4163973c1ac9ce55c228c18d6d79151fe937f3e9bd2513d263021
+      sha256: e258a5a6b284961c688eb49d8661f2441f28469c3e73a1b9732a47cb8ce537a8
       url: "https://pub.dev"
     source: hosted
-    version: "10.15.1"
+    version: "10.15.2"
   sign_in_with_apple:
     dependency: "direct main"
     description:
